@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{8D35B7F0-F538-47E0-8F11-8DAACCCBA8D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLayer", "BusinessLayer", "{262F5BCA-2971-4EA3-A1E7-510923D20564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebEmoticonAnalysis", "PresentationLayer\WebEmoticonAnalysis\WebEmoticonAnalysis.csproj", "{CA0492BA-1ACF-4111-B079-CA20C19D7459}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVM", "BusinessLayer\SVM\SVM.csproj", "{63FC209F-C337-4348-AE37-B3898E7E1195}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary", "BusinessLayer\Dictionary\Dictionary.csproj", "{0A05D6E6-8D90-4A95-9814-9C6617A8A7B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smile", "BusinessLayer\Smile\Smile.csproj", "{7BD1FA14-1197-40DE-A928-B1CCBB30CD10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleEmoticonAnalysis", "ConsoleEmoticonAnalysis\ConsoleEmoticonAnalysis.csproj", "{4B0286D8-D862-4B1E-8136-951297C33F0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveBayes", "BusinessLayer\NaiveBayes\NaiveBayes.csproj", "{6A398529-D4C4-4CBD-8680-1AFAAE19D479}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA0492BA-1ACF-4111-B079-CA20C19D7459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA0492BA-1ACF-4111-B079-CA20C19D7459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA0492BA-1ACF-4111-B079-CA20C19D7459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA0492BA-1ACF-4111-B079-CA20C19D7459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FC209F-C337-4348-AE37-B3898E7E1195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FC209F-C337-4348-AE37-B3898E7E1195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FC209F-C337-4348-AE37-B3898E7E1195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FC209F-C337-4348-AE37-B3898E7E1195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A05D6E6-8D90-4A95-9814-9C6617A8A7B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A05D6E6-8D90-4A95-9814-9C6617A8A7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A05D6E6-8D90-4A95-9814-9C6617A8A7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A05D6E6-8D90-4A95-9814-9C6617A8A7B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD1FA14-1197-40DE-A928-B1CCBB30CD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD1FA14-1197-40DE-A928-B1CCBB30CD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD1FA14-1197-40DE-A928-B1CCBB30CD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD1FA14-1197-40DE-A928-B1CCBB30CD10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0286D8-D862-4B1E-8136-951297C33F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0286D8-D862-4B1E-8136-951297C33F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0286D8-D862-4B1E-8136-951297C33F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0286D8-D862-4B1E-8136-951297C33F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A398529-D4C4-4CBD-8680-1AFAAE19D479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A398529-D4C4-4CBD-8680-1AFAAE19D479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A398529-D4C4-4CBD-8680-1AFAAE19D479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A398529-D4C4-4CBD-8680-1AFAAE19D479}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA0492BA-1ACF-4111-B079-CA20C19D7459} = {8D35B7F0-F538-47E0-8F11-8DAACCCBA8D7}
+		{63FC209F-C337-4348-AE37-B3898E7E1195} = {262F5BCA-2971-4EA3-A1E7-510923D20564}
+		{0A05D6E6-8D90-4A95-9814-9C6617A8A7B6} = {262F5BCA-2971-4EA3-A1E7-510923D20564}
+		{7BD1FA14-1197-40DE-A928-B1CCBB30CD10} = {262F5BCA-2971-4EA3-A1E7-510923D20564}
+		{4B0286D8-D862-4B1E-8136-951297C33F0F} = {8D35B7F0-F538-47E0-8F11-8DAACCCBA8D7}
+		{6A398529-D4C4-4CBD-8680-1AFAAE19D479} = {262F5BCA-2971-4EA3-A1E7-510923D20564}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0806F5EC-F413-4743-8591-DFA39F411B9A}
+	EndGlobalSection
+EndGlobal

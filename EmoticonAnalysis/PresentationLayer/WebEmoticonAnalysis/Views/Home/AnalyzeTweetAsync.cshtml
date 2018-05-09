@@ -1,0 +1,74 @@
+﻿@model WebEmoticonAnalysis.Models.AnalyzeTweetResultViewModel
+
+@{
+    ViewBag.Title = "AnalyzeTweet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AnalyzeTweet</h2>
+
+<div>
+    <h4>AnalyzeTweetResultViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TweetId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TweetId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TweetAuthor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TweetAuthor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TweetText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TweetText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SmileResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SmileResult)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DictionaryResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DictionaryResult)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SvmResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SvmResult)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BayesResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BayesResult)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back", "Index")
+</p>

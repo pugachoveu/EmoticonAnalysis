@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @if (ViewBag.Error != null)
+        {
+            @ViewBag.Error
+        }
+        <form method="get" action="@Url.Action("AnalyzeTweetAsync", "Home")">
+            <div class="form-group row">
+                    <label for="inputTweet" class="col-sm-2 col-form-label">Tweet Url</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputTweet" name="inputTweet" placeholder="Tweet Url" value="990527217103982592">
+                    </div>
+                </div>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Just smile</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            @*<input class="form-check-input" type="checkbox" name="isSmile" id="smileCheck">*@
+                            @Html.CheckBox("isSmile", true, new { @class = "form-check-input", id = "smileCheck" })
+                            <label class="form-check-label" for="smileCheck">
+                                Analisys only by smile
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Dictionary</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            @*<input class="form-check-input" type="checkbox" name="isDictionary" id="dictionaryCheck">*@
+                            @Html.CheckBox("isDictionary", true, new { @class = "form-check-input", id = "dictionaryCheck" })
+                            <label class="form-check-label" for="dictionaryCheck">
+                                Use dictionary method
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">SVM</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            @*<input class="form-check-input" type="checkbox" name="isSvm" id="svmCheck">*@
+                            @Html.CheckBox("isSvm", true, new { @class = "form-check-input", id = "svmCheck" })
+                            <label class="form-check-label" for="svmCheck">
+                                Use SVM method
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Naive Bayes</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            @*<input class="form-check-input" type="checkbox" name="isBayes" id="bayesCheck">*@
+                            @Html.CheckBox("isBayes", true, new {@class= "form-check-input", id = "bayesCheck" })
+
+
+                            <label class="form-check-label" for="bayesCheck">
+                                Use Naive Bayes method
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Start</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>*@
