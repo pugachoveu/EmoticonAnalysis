@@ -9,17 +9,40 @@ using System.Threading.Tasks;
 
 namespace Smile
 {
-    public static class SmileMethod
+    public class SmileMethod
     {
-        public static string Analyze(string message)
+        private static SmileMethod instance;
+        private static List<EmoticonModel> emoticons;
+
+        private SmileMethod()
         {
-            var emoticonList = LoadEmoticons();
+            emoticons = LoadEmoticons();
+        }
+
+        public static SmileMethod Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SmileMethod();
+                }
+                return instance;
+            }
+        }
+
+
+        
+
+        public string Analyze(string message)
+        {
+            //var emoticonList = LoadEmoticons();
             int meaningValue = 0;
             var messArr = message.Split(' ');
 
             foreach (var e in messArr)
             {
-                var t = emoticonList.Where(c => c.Emoji.Contains(e));
+                var t = emoticons.Where(c => c.Emoji.Contains(e));
                 if (t.Any())
                 {
                     meaningValue += t.First().Polarity;
@@ -28,7 +51,7 @@ namespace Smile
             return meaningValue > 0 ? "positive" : "negative";
         }
 
-        private static List<EmoticonModel> LoadEmoticons()
+        private List<EmoticonModel> LoadEmoticons()
         {
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/emoticon_list.txt");
             if (!File.Exists(path))

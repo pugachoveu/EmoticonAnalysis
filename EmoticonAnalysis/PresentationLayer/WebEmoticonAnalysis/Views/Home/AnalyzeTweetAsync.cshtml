@@ -1,74 +1,187 @@
-﻿@model WebEmoticonAnalysis.Models.AnalyzeTweetResultViewModel
+﻿@model WebEmoticonAnalysis.Models.ResultModel
 
 @{
+    /**/
+
     ViewBag.Title = "AnalyzeTweet";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>AnalyzeTweet</h2>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    @if (Model.Tweets != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" id="search-tab" data-toggle="tab" href="#search" role="tab" aria-controls="search" aria-selected="true">Search</a>
+        </li>
+    }
+    @if (Model.Tweet != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link" id="tweet-tab" data-toggle="tab" href="#tweet" role="tab" aria-controls="tweet" aria-selected="false">Tweet</a>
+        </li>
+    }
+    @if (Model.Text != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link" id="text-tab" data-toggle="tab" href="#text" role="tab" aria-controls="text" aria-selected="false">Text</a>
+        </li>
+    }
 
-<div>
-    <h4>AnalyzeTweetResultViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TweetId)
-        </dt>
+</ul>
+<div class="tab-content" id="myTabContent">
+    @if (Model.Text != null)
+    {
+        <div class="tab-pane fade show active" id="search" role="tabpanel" aria-labelledby="search-tab">
+            <table class="table table-sm tweet-result-table">
+                <caption>Search results for "@ViewBag.SearchString". Results - @Model.Tweets.Count </caption>
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">Tweet Id</th>
+                        <th scope="col">Tweet Author</th>
+                        <th scope="col">Text</th>
+                        <th scope="col">Smile</th>
+                        <th scope="col">Distionary</th>
+                        <th scope="col">SVM</th>
+                        <th scope="col">Naive Bayes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model.Tweets)
+                    {
+                        <tr>
+                            <th scope="row">@t.TweetId</th>
+                            <th>@t.TweetAuthor</th>
+                            <th>@t.TweetText</th>
+                            <th>@t.SmileResult</th>
+                            <th>@t.DictionaryResult</th>
+                            <th>@t.SvmResult</th>
+                            <th>@t.BayesResult</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.TweetId)
-        </dd>
+        </div>
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TweetAuthor)
-        </dt>
+    @if (Model.Text != null)
+    {
+        <div class="tab-pane fade" id="tweet" role="tabpanel" aria-labelledby="tweet-tab">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.TweetId)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TweetAuthor)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.TweetId)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TweetText)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.TweetAuthor)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TweetText)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.TweetAuthor)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SmileResult)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.TweetText)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SmileResult)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.TweetText)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DictionaryResult)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.SmileResult)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DictionaryResult)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.SmileResult)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SvmResult)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.DictionaryResult)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SvmResult)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.DictionaryResult)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BayesResult)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.SvmResult)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BayesResult)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.SvmResult)
+                    </dd>
 
-    </dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tweet.BayesResult)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Tweet.BayesResult)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    }
+
+    @if (Model.Text != null)
+    {
+        <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="text-tab">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text.TweetText)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Text.TweetText)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text.SmileResult)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Text.SmileResult)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text.DictionaryResult)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Text.DictionaryResult)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text.SvmResult)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Text.SvmResult)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text.BayesResult)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Text.BayesResult)
+                    </dd>
+                </dl>
+            </div>
+
+        </div>
+    }
+
 </div>
+
 <p>
     @Html.ActionLink("Back", "Index")
 </p>

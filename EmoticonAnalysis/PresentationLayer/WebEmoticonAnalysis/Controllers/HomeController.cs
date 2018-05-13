@@ -10,6 +10,7 @@ using Smile;
 using Dictionary;
 using SVM;
 using NaiveBayes;
+using System.IO;
 
 namespace WebEmoticonAnalysis.Controllers
 {
@@ -34,22 +35,31 @@ namespace WebEmoticonAnalysis.Controllers
             return View();
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> AnalyzeTweetAsync(string inputTweet, bool isSmile = false,
-            bool isDictionary = false, bool isSvm = false, bool isBayes = false)
+        public async System.Threading.Tasks.Task<ActionResult> AnalyzeTweetAsync(TweetAnalyzeViewModel model)
         {
-            if (String.IsNullOrEmpty(inputTweet))
+            System.Diagnostics.Debug.WriteLine("SomeText");
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+
+            SmileMethod smileAnalyzer = SmileMethod.Instance;
+            DictionaryMethod dictionaryAnalyzer = DictionaryMethod.Instance;
+            SvmMethod svmAnalyzer = SvmMethod.Instance;
+            NaiveBayesMethod naiveBayesAnalyzer = NaiveBayesMethod.Instance;
+
+            if (String.IsNullOrEmpty(model.InputTweet))
             {
                 ViewBag.Error = "Input is empty";
                 return View("~/Views/Home/Index.cshtml");
             }
-            if (!isSmile && !isDictionary && !isSvm && !isBayes)
+            if (!model.IsSmile && !model.IsDictionary && !model.IsSvm && !model.IsBayes)
             {
                 ViewBag.Error = "Select any checkbox";
                 return View("~/Views/Home/Index.cshtml");
             }
 
+            var result = new ResultModel();
             ulong tweetId = 0;
-            var tweetUrlArray = inputTweet.Split('/');
+            var tweetUrlArray = model.InputTweet.Split('/');
 
             try
             {
@@ -74,7 +84,7 @@ namespace WebEmoticonAnalysis.Controllers
 
             var twitterCtx = new TwitterContext(auth);
             var currTweet = new Status();
-            List<Status> status =
+            var status =
                await
                (from tweet in twitterCtx.Status
                 where tweet.Type == StatusType.Show &&
@@ -84,17 +94,18 @@ namespace WebEmoticonAnalysis.Controllers
                 select tweet)
                .ToListAsync();
 
+            //Analyze tweet
             if (status != null)
             {
                 currTweet = status.First();
                 var message = currTweet.FullText;
 
-                var smileResult = isSmile ? SmileMethod.Analyze(message) : String.Empty;
-                var dictionaryResult = isDictionary ? DictionaryMethod.Analyze(message) : String.Empty;
-                var svmResult = isSvm ? SvmMethod.Analyze(message) : String.Empty;
-                var bayesResult = isBayes ? NaiveBayes.NaiveBayes.Analyze(message) : String.Empty;
+                var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : String.Empty;
+                var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : String.Empty;
+                var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : String.Empty;
+                var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : String.Empty;
 
-                return View(new AnalyzeTweetResultViewModel
+                result.Tweet = new AnalyzeTweetResultViewModel
                 {
                     TweetAuthor = currTweet.User.ScreenNameResponse,
                     TweetId = currTweet.StatusID,
@@ -103,9 +114,79 @@ namespace WebEmoticonAnalysis.Controllers
                     DictionaryResult = dictionaryResult.ToString(),
                     SvmResult = svmResult,
                     BayesResult = bayesResult
-                });
+                };
             }
-            return View(new AnalyzeTweetResultViewModel());
+            //Analyze text
+            if (!String.IsNullOrEmpty(model.TextTweet))
+            {
+                var message = model.TextTweet;
+
+                var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : String.Empty;
+                var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : String.Empty;
+                var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : String.Empty;
+                var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : String.Empty;
+
+                result.Text = new AnalyzeTextResultViewModel
+                {
+                    TweetText = model.TextTweet,
+                    SmileResult = smileResult.ToString(),
+                    DictionaryResult = dictionaryResult.ToString(),
+                    SvmResult = svmResult,
+                    BayesResult = bayesResult
+                };
+            }
+            //Analyze tweet search
+            if (!String.IsNullOrEmpty(model.SearchTweet))
+            {
+                ViewBag.SearchString = model.SearchTweet;
+                Search searchResponse =
+                await
+                (from search in twitterCtx.Search
+                 where search.Type == SearchType.Search &&
+                     search.Query == model.SearchTweet &&
+                     search.IncludeEntities == true &&
+                     search.TweetMode == TweetMode.Extended
+                 select search)
+                .SingleOrDefaultAsync();
+
+                if (searchResponse?.Statuses != null)
+                {
+                    result.Tweets = new List<AnalyzeSearchResultViewModel>();
+                    foreach (var tweet in searchResponse.Statuses)
+                    {
+                        var message = model.TextTweet;
+
+                        var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : String.Empty;
+                        var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : String.Empty;
+                        var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : String.Empty;
+                        var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : String.Empty;
+
+                        result.Tweets.Add(new AnalyzeSearchResultViewModel
+                        {
+                            TweetAuthor = tweet.User.ScreenNameResponse,
+                            TweetId = tweet.StatusID,
+                            TweetText = model.TextTweet,
+                            SmileResult = smileResult.ToString(),
+                            DictionaryResult = dictionaryResult.ToString(),
+                            SvmResult = svmResult,
+                            BayesResult = bayesResult
+                        });
+                    }
+                }
+            }
+
+            sw.Stop();
+            System.Diagnostics.Debug.WriteLine((sw.ElapsedMilliseconds / 100.0).ToString());
+
+            var logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/logs.txt");
+            
+            string log = $"{(sw.ElapsedMilliseconds / 100.0).ToString()}" + Environment.NewLine;
+            if (!System.IO.File.Exists(logFilePath))
+                System.IO.File.WriteAllText(logFilePath, log);
+            else
+                System.IO.File.AppendAllText(logFilePath, log);
+
+            return View(result);
         }
     }
 }

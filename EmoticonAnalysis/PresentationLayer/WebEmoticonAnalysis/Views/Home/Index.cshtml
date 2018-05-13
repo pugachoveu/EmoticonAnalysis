@@ -9,73 +9,83 @@
             @ViewBag.Error
         }
         <form method="get" action="@Url.Action("AnalyzeTweetAsync", "Home")">
-            <div class="form-group row">
-                    <label for="inputTweet" class="col-sm-2 col-form-label">Tweet Url</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputTweet" name="inputTweet" placeholder="Tweet Url" value="990527217103982592">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <label for="searchTweet" class="col-form-label">Search tweet</label>
+                        <input type="text" class="form-control col-md-11" id="searchTweet" name="SearchTweet" placeholder="Search" value="star wars">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTweet" class=" col-form-label">Tweet Url</label>
+                        <input type="text" class="form-control col-md-11" id="inputTweet" name="InputTweet" placeholder="Tweet Url" value="990527217103982592">
+                    </div>
+                    <div class="form-group">
+                        <label for="textTweet" class="col-form-label">Message</label>
+                        <textarea class="form-control col-md-11" rows="5" id="textTweet" name="TextTweet" placeholder="Text">It was a good day</textarea>
                     </div>
                 </div>
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Just smile</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            @*<input class="form-check-input" type="checkbox" name="isSmile" id="smileCheck">*@
-                            @Html.CheckBox("isSmile", true, new { @class = "form-check-input", id = "smileCheck" })
-                            <label class="form-check-label" for="smileCheck">
-                                Analisys only by smile
-                            </label>
+                <div class="col-sm-5">
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-4 pt-0">Just smile</legend>
+                            <div class="col-sm-8">
+                                <div class="form-check">
+                                    @*<input class="form-check-input" type="checkbox" name="isSmile" id="smileCheck">*@
+                                    @Html.CheckBox("isSmile", true, new { @class = "form-check-input", id = "smileCheck" })
+                                    <label class="form-check-label" for="smileCheck">
+                                        Analisys only by smile
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-4 pt-0">Dictionary</legend>
+                            <div class="col-sm-8">
+                                <div class="form-check">
+                                    @*<input class="form-check-input" type="checkbox" name="isDictionary" id="dictionaryCheck">*@
+                                    @Html.CheckBox("isDictionary", true, new { @class = "form-check-input", id = "dictionaryCheck" })
+                                    <label class="form-check-label" for="dictionaryCheck">
+                                        Use dictionary method
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-4 pt-0">SVM</legend>
+                            <div class="col-sm-8">
+                                <div class="form-check">
+                                    @*<input class="form-check-input" type="checkbox" name="isSvm" id="svmCheck">*@
+                                    @Html.CheckBox("isSvm", true, new { @class = "form-check-input", id = "svmCheck" })
+                                    <label class="form-check-label" for="svmCheck">
+                                        Use SVM method
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <legend class="col-form-label col-sm-4 pt-0">Naive Bayes</legend>
+                            <div class="col-sm-8">
+                                <div class="form-check">
+                                    @*<input class="form-check-input" type="checkbox" name="isBayes" id="bayesCheck">*@
+                                    @Html.CheckBox("isBayes", true, new { @class = "form-check-input", id = "bayesCheck" })
+                                    <label class="form-check-label" for="bayesCheck">
+                                        Use Naive Bayes method
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Start</button>
                         </div>
                     </div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Dictionary</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            @*<input class="form-check-input" type="checkbox" name="isDictionary" id="dictionaryCheck">*@
-                            @Html.CheckBox("isDictionary", true, new { @class = "form-check-input", id = "dictionaryCheck" })
-                            <label class="form-check-label" for="dictionaryCheck">
-                                Use dictionary method
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">SVM</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            @*<input class="form-check-input" type="checkbox" name="isSvm" id="svmCheck">*@
-                            @Html.CheckBox("isSvm", true, new { @class = "form-check-input", id = "svmCheck" })
-                            <label class="form-check-label" for="svmCheck">
-                                Use SVM method
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Naive Bayes</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            @*<input class="form-check-input" type="checkbox" name="isBayes" id="bayesCheck">*@
-                            @Html.CheckBox("isBayes", true, new {@class= "form-check-input", id = "bayesCheck" })
-
-
-                            <label class="form-check-label" for="bayesCheck">
-                                Use Naive Bayes method
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Start</button>
                 </div>
             </div>
         </form>

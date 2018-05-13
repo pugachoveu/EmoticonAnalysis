@@ -9,31 +9,44 @@ using System.Threading.Tasks;
 
 namespace NaiveBayes
 {
-    public static class NaiveBayes
+    public class NaiveBayesMethod
     {
-        //static List<Document> _trainCorpus = new List<Document>
-        //{
-        //    new Document("spam", "предоставляю услуги бухгалтера"),
-        //    new Document("spam", "спешите купить виагру"),
-        //    new Document("ham", "надо купить молоко")
-        //};
-        static List<Document> _trainCorpus = new List<Document>();
+        
+        static List<Document> trainCorpus = new List<Document>();
+        private static NaiveBayesMethod instance;
+        private static Classifier classifier;
 
-        static string test = "надо купить сигареты";
-
-        public static string Analyze(string message)
+        private NaiveBayesMethod()
         {
-            LoadTweetCorpus();
-            var c = new Classifier(_trainCorpus);
-            var res = c.IsInClassProbability("1", message);
+            trainCorpus = LoadTweetCorpus();
+            classifier = new Classifier(trainCorpus);
+        }
+
+        public static NaiveBayesMethod Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new NaiveBayesMethod();
+                }
+                return instance;
+            }
+        }
+
+        public string Analyze(string message)
+        {
+        
+            var res = classifier.IsInClassProbability("1", message);
 
             return res.ToString();
         }
 
-        private static void LoadTweetCorpus()
+        private List<Document> LoadTweetCorpus()
         {
             try
             {
+                List<Document> corpus = new List<Document>();
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/SentimentAnalysisDataset.csv");
                 if (File.Exists(path))
                 {
@@ -43,14 +56,16 @@ namespace NaiveBayes
                         var lineArr = lines[i].Split(new string[] { ",Sentiment140,", ",Kaggle," }, StringSplitOptions.None);
                         var t = lineArr[0].Split(',')[1];
                         var text = lineArr[1].Trim();
-                        _trainCorpus.Add(new Document(t, text));
+                        corpus.Add(new Document(t, text));
                     }
 
                 }
+                return corpus;
             }
             catch (Exception e)
             {
                 Console.WriteLine("error");
+                return new List<Document>();
             }
         }
     }

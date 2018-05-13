@@ -49,7 +49,7 @@
     <Compile Include="Models\Classifier.cs" />
     <Compile Include="Models\ClassInfo.cs" />
     <Compile Include="Models\Document.cs" />
-    <Compile Include="NaiveBayes.cs" />
+    <Compile Include="NaiveBayesMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
