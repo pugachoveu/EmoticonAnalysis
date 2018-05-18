@@ -165,7 +165,7 @@ namespace WebEmoticonAnalysis.Controllers
                         {
                             TweetAuthor = tweet.User.ScreenNameResponse,
                             TweetId = tweet.StatusID,
-                            TweetText = model.TextTweet,
+                            TweetText = tweet.FullText,
                             SmileResult = smileResult.ToString(),
                             DictionaryResult = dictionaryResult.ToString(),
                             SvmResult = svmResult,
