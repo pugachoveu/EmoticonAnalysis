@@ -1,6 +1,26 @@
-73,01
+35,01
 10,14
 10,3
 10,35
 10,51
 11,29
+
+
+//positive          //negative
+true,2              loser,3         
+trust,1             losing,3    
+trusted,2           loss,3
+unbiased,2          lost,3
+unequaled,2         lowest,1
+unified,1           lugubrious,2
+united,1            lunatic,3
+unmatched,1         lunatics,3
+unstoppable,2       lurk,1
+untarnished,2       lurking,1
+useful,2            lurks,1
+usefulness,2        mad,3
+vested,1            maddening,3
+vibrant,3           made-up,1
+vigilant,3          madly,3
+vindicate,2         madness,350,17
+29,26

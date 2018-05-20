@@ -78,9 +78,6 @@ namespace Dictionary.Models
                     var scoreClassB = (decimal)Math.Log(wordCountInClassB / _negativeClass.TotalWords());
                     scores[index][_negativeClass.Name()] += scoreClassB;
 
-                    //Logger.DebugFormat(",[TAG_A],{0}, {1}, {2}, {3}, {4},,{5}, {6}, {7}, {8}", word, _positiveClass.Name(),
-                    //wordCountInClassA, _positiveClass.TotalWords(), scoreClassA, _negativeClass.Name(),
-                    //wordCountInClassB, _negativeClass.TotalWords(), scoreClassB);
                 }
 
                 var totalWordsAllCategories = _positiveClass.TotalWords() + _negativeClass.TotalWords();
@@ -102,9 +99,6 @@ namespace Dictionary.Models
                     throw;
                 }
 
-                //Logger.DebugFormat("Chunk_{0} score for {1} : {2}", index, _positiveClass.Name(), scores[index][_positiveClass.Name()]);
-                //Logger.DebugFormat("Chunk_{0} score for {1} : {2}", index, _negativeClass.Name(), scores[index][_negativeClass.Name()]);
-
                 index++;
             }
 
@@ -123,9 +117,6 @@ namespace Dictionary.Models
 
             results[_positiveClass.Name()] = results[_positiveClass.Name()] / scores.Count;
             results[_negativeClass.Name()] = results[_negativeClass.Name()] / scores.Count;
-
-            //Logger.DebugFormat("Total score for {0} : {1}, {2} : {3} ", _positiveClass.Name(), results[_positiveClass.Name()],
-            //                   _negativeClass.Name(), results[_negativeClass.Name()]);
 
             return results;
 

@@ -9,7 +9,7 @@ namespace Smile
 {
     public class SmileMethod
     {
-        private static SmileMethod instance;
+        private static readonly Lazy<SmileMethod> instance =  new Lazy<SmileMethod>(() => new SmileMethod());
         private static List<EmoticonModel> emoticons;
 
         private SmileMethod()
@@ -19,14 +19,7 @@ namespace Smile
 
         public static SmileMethod Instance
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new SmileMethod();
-                }
-                return instance;
-            }
+            get { return instance.Value; }
         }
 
         public string Analyze(string message)
