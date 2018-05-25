@@ -34,12 +34,13 @@ namespace NaiveBayes
             }
         }
 
-        public string Analyze(string message)
+        public int Analyze(string message)
         {
         
-            var res = classifier.IsInClassProbability("1", message);
+            var positiveRes = classifier.IsInClassProbability("1", message);//positive
+            var negativeRes = classifier.IsInClassProbability("0", message);//negative
 
-            return res.ToString();
+            return positiveRes>negativeRes? 1 : -1 ;
         }
 
         private List<Document> LoadTweetCorpus()

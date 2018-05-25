@@ -24,3 +24,8 @@ vibrant,3           made-up,1
 vigilant,3          madly,3
 vindicate,2         madness,350,17
 29,26
+50,73
+43,84
+14,69
+15,48
+11,07

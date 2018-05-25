@@ -22,6 +22,50 @@ select,
 textarea {
     max-width: 280px;
 }
+
 .tweet-result-table tbody th {
     font-weight: normal;
+}
+
+tr.positive {
+    background-color: #c3e6cb;
+}
+
+tr.neutral {
+    background-color: #d6d8db;
+}
+
+tr.negative {
+    background-color: #f5c6cb;
+}
+
+div.positive {
+    width: 20px;
+    height: 20px;
+    content: "+1";
+    background-image: url("/Files/Images/Logo.png");
+}
+
+div.neutral {
+    width: 20px;
+    height: 20px;
+    content: "+1";
+    background-image: url("/Files/Images/Logo.png");
+}
+
+div.negative {
+    width: 20px;
+    height: 20px;
+    content: "+1";
+    background-image: url("/Files/Images/Logo.png");
+}
+
+.containing-tabl {
+    display: table
+}
+
+.centre-align {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
 }

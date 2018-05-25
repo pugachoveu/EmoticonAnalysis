@@ -22,7 +22,7 @@ namespace Smile
             get { return instance.Value; }
         }
 
-        public string Analyze(string message)
+        public int Analyze(string message)
         {
             //var emoticonList = LoadEmoticons();
             int meaningValue = 0;
@@ -36,7 +36,11 @@ namespace Smile
                     meaningValue += t.First().Polarity;
                 }
             }
-            return meaningValue > 0 ? "positive" : "negative";
+
+            if (meaningValue == 0)
+                return 0;
+
+            return meaningValue > 0 ? 1 : -1 ;
         }
 
         private List<EmoticonModel> LoadEmoticons()

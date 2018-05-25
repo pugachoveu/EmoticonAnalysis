@@ -38,11 +38,11 @@ namespace Dictionary
             }
         }
 
-        public string Analyze( string message)
+        public int Analyze( string message)
         {
              var scores = classifier.Classify(message, Dictionary.Helpers.VocabularyHelper.ExcludeList);
 
-            return scores["Positive"] > scores["Negative"] ? "positive" : "negative";
+            return scores["Positive"] > scores["Negative"] ? 1 : -1;
         }
         //private String GetWebpageContents(String url)
         //{

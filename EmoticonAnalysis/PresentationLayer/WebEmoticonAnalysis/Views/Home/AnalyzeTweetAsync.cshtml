@@ -35,7 +35,7 @@
         <div class="tab-pane fade show active" id="search" role="tabpanel" aria-labelledby="search-tab">
             <table class="table table-sm tweet-result-table">
                 <caption>Search results for "@ViewBag.SearchString". Results - @Model.Tweets.Count </caption>
-                <thead class="table-primary">
+                <thead>
                     <tr>
                         <th scope="col">Tweet Id</th>
                         <th scope="col">Tweet Author</th>
@@ -49,14 +49,14 @@
                 <tbody>
                     @foreach (var t in Model.Tweets)
                     {
-                        <tr>
-                            <th scope="row">@t.TweetId</th>
-                            <th>@t.TweetAuthor</th>
-                            <th>@t.TweetText</th>
-                            <th>@t.SmileResult</th>
-                            <th>@t.DictionaryResult</th>
-                            <th>@t.SvmResult</th>
-                            <th>@t.BayesResult</th>
+                        <tr class=@t.TotalResult>
+                            <td scope="row">@t.TweetId</td>
+                            <td>@t.TweetAuthor</td>
+                            <td>@t.TweetText</td>
+                            <td><div class="containing-tabl"><div class="centre-align"><div class=@t.SmileResult></div></div></div></td>
+                            <td><div class="containing-tabl"><div class="centre-align"><div class=@t.DictionaryResult></div></div></div></td>
+                            <td><div class="containing-tabl"><div class="centre-align"><div class=@t.SvmResult></div></div></div></td>
+                            <td><div class="containing-tabl"><div class="centre-align"><div class=@t.BayesResult></div></div></div></td>
                         </tr>
                     }
                 </tbody>
@@ -99,7 +99,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Tweet.SmileResult)
+                        <div class=@Model.Tweet.SmileResult></div>
+                        @*@Html.DisplayFor(model => model.Tweet.SmileResult)*@
                     </dd>
 
                     <dt>
@@ -107,7 +108,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Tweet.DictionaryResult)
+                        <div class=@Model.Tweet.DictionaryResult></div>
+                        @*@Html.DisplayFor(model => model.Tweet.DictionaryResult)*@
                     </dd>
 
                     <dt>
@@ -115,7 +117,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Tweet.SvmResult)
+                        <div class=@Model.Tweet.SvmResult></div>
+                        @*@Html.DisplayFor(model => model.Tweet.SvmResult)*@
                     </dd>
 
                     <dt>
@@ -123,7 +126,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Tweet.BayesResult)
+                        <div class=@Model.Tweet.BayesResult></div>
+                        @*@Html.DisplayFor(model => model.Tweet.BayesResult)*@
                     </dd>
                 </dl>
             </div>
@@ -148,7 +152,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Text.SmileResult)
+                        <div class=@Model.Text.SmileResult></div>
+                        @*@Html.DisplayFor(model => model.Text.SmileResult)*@
                     </dd>
 
                     <dt>
@@ -156,7 +161,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Text.DictionaryResult)
+                        <div class=@Model.Text.DictionaryResult></div>
+                        @*@Html.DisplayFor(model => model.Text.DictionaryResult)*@
                     </dd>
 
                     <dt>
@@ -164,7 +170,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Text.SvmResult)
+                        <div class=@Model.Text.SvmResult></div>
+                        @*@Html.DisplayFor(model => model.Text.SvmResult)*@
                     </dd>
 
                     <dt>
@@ -172,7 +179,8 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Text.BayesResult)
+                        <div class=@Model.Text.BayesResult></div>
+                        @*@Html.DisplayFor(model => model.Text.BayesResult)*@
                     </dd>
                 </dl>
             </div>

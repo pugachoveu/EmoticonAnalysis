@@ -35,11 +35,9 @@ namespace WebEmoticonAnalysis.Controllers
             return View();
         }
 
+        [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> AnalyzeTweetAsync(TweetAnalyzeViewModel model)
         {
-            System.Diagnostics.Debug.WriteLine("SomeText");
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
 
             SmileMethod smileAnalyzer = SmileMethod.Instance;
             DictionaryMethod dictionaryAnalyzer = DictionaryMethod.Instance;
@@ -100,20 +98,49 @@ namespace WebEmoticonAnalysis.Controllers
                 currTweet = status.First();
                 var message = currTweet.FullText;
 
-                var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : String.Empty;
-                var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : String.Empty;
-                var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : String.Empty;
-                var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : String.Empty;
+                var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : 0;
+                var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : 0;
+                var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : 0;
+                var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : 0;
+
+                var smile = String.Empty;
+                switch (smileResult)
+                {
+                    case -1:
+                        smile = "negative";
+                        break;
+                    case 0:
+                        smile = "neutral";
+                        break;
+                    case 1:
+                        smile = "positive";
+                        break;
+                }
+
+                var total = String.Empty;
+                switch (smileResult + dictionaryResult + svmResult + bayesResult)
+                {
+                    case -1:
+                        total = "negative";
+                        break;
+                    case 0:
+                        total = "neutral";
+                        break;
+                    case 1:
+                        total = "positive";
+                        break;
+                }
 
                 result.Tweet = new AnalyzeTweetResultViewModel
                 {
                     TweetAuthor = currTweet.User.ScreenNameResponse,
                     TweetId = currTweet.StatusID,
                     TweetText = currTweet.FullText,
-                    SmileResult = smileResult.ToString(),
-                    DictionaryResult = dictionaryResult.ToString(),
-                    SvmResult = svmResult,
-                    BayesResult = bayesResult
+                    SmileResult = smile,
+                    DictionaryResult = dictionaryResult > 0 ? "positive" : "negative",
+                    SvmResult = svmResult > 0 ? "positive" : "negative",
+                    BayesResult = bayesResult > 0 ? "positive" : "negative",
+                    TotalResult = total
                 };
             }
             //Analyze text
@@ -121,18 +148,47 @@ namespace WebEmoticonAnalysis.Controllers
             {
                 var message = model.TextTweet;
 
-                var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : String.Empty;
-                var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : String.Empty;
-                var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : String.Empty;
-                var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : String.Empty;
+                var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : -99;
+                var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : -99;
+                var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : -99;
+                var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : -99;
+
+                var smile = String.Empty;
+                switch (smileResult)
+                {
+                    case -1:
+                        smile = "negative";
+                        break;
+                    case 0:
+                        smile = "neutral";
+                        break;
+                    case 1:
+                        smile = "positive";
+                        break;
+                }
+               
+                var total = String.Empty;
+                switch (smileResult + dictionaryResult + svmResult + bayesResult)
+                {
+                    case -1:
+                        total = "negative";
+                        break;
+                    case 0:
+                        total = "neutral";
+                        break;
+                    case 1:
+                        total = "positive";
+                        break;
+                }
 
                 result.Text = new AnalyzeTextResultViewModel
                 {
                     TweetText = model.TextTweet,
-                    SmileResult = smileResult.ToString(),
-                    DictionaryResult = dictionaryResult.ToString(),
-                    SvmResult = svmResult,
-                    BayesResult = bayesResult
+                    SmileResult = smile,
+                    DictionaryResult = dictionaryResult > 0 ? "positive" : "negative",
+                    SvmResult = svmResult > 0 ? "positive" : "negative",
+                    BayesResult = bayesResult > 0 ? "positive" : "negative",
+                    TotalResult = total
                 };
             }
             //Analyze tweet search
@@ -156,35 +212,58 @@ namespace WebEmoticonAnalysis.Controllers
                     {
                         var message = model.TextTweet;
 
-                        var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : String.Empty;
-                        var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : String.Empty;
-                        var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : String.Empty;
-                        var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : String.Empty;
+                        var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : 0;
+                        var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : 0;
+                        var svmResult = model.IsSvm ? svmAnalyzer.Analyze(message) : 0;
+                        var bayesResult = model.IsBayes ? naiveBayesAnalyzer.Analyze(message) : 0;
+
+                        var smile = String.Empty;
+                        switch (smileResult)
+                        {
+                            case -1:
+                                smile = "negative";
+                                break;
+                            case 0:
+                                smile = "neutral";
+                                break;
+                            case 1:
+                                smile = "positive";
+                                break;
+                        }
+
+                        var total = String.Empty;
+                        switch (smileResult + dictionaryResult + svmResult + bayesResult)
+                        {
+                            case -1:
+                                total = "negative";
+                                break;
+                            case 0:
+                                total = "neutral";
+                                break;
+                            case 1:
+                                total = "positive";
+                                break;
+                        }
 
                         result.Tweets.Add(new AnalyzeSearchResultViewModel
                         {
                             TweetAuthor = tweet.User.ScreenNameResponse,
                             TweetId = tweet.StatusID,
                             TweetText = tweet.FullText,
-                            SmileResult = smileResult.ToString(),
-                            DictionaryResult = dictionaryResult.ToString(),
-                            SvmResult = svmResult,
-                            BayesResult = bayesResult
+                            SmileResult = smile,
+                            DictionaryResult = dictionaryResult > 0 ? "positive" : "negative",
+                            SvmResult = svmResult > 0 ? "positive" : "negative",
+                            BayesResult = bayesResult > 0 ? "positive" : "negative",
+                            TotalResult = total
                         });
                     }
                 }
             }
 
-            sw.Stop();
-            System.Diagnostics.Debug.WriteLine((sw.ElapsedMilliseconds / 100.0).ToString());
-
-            var logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/logs.txt");
-            
-            string log = $"{(sw.ElapsedMilliseconds / 100.0).ToString()}" + Environment.NewLine;
-            if (!System.IO.File.Exists(logFilePath))
-                System.IO.File.WriteAllText(logFilePath, log);
-            else
-                System.IO.File.AppendAllText(logFilePath, log);
+            ViewBag.IsSmile = model.IsSmile;
+            ViewBag.IsDictionary = model.IsDictionary;
+            ViewBag.IsSvm = model.IsSvm;
+            ViewBag.IsBayes = model.IsBayes;
 
             return View(result);
         }

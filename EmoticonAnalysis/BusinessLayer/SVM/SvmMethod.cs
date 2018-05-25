@@ -18,20 +18,35 @@ namespace SVM
 
         private SvmMethod()
         {
-            var dataTable = DataTable.New.ReadCsv(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/spamdata.csv"));
-            List<string> x = dataTable.Rows.Select(row => row["Text"]).ToList();
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/SentimentAnalysisDataset.csv");
+            List<string> x = new List<string>();
 
-            double[] y = dataTable.Rows.Select(row => double.Parse(row["IsSpam"])).ToArray();
+            List<double> y = new List<double>();
+            if (File.Exists(path))
+            {
+                var lines = File.ReadAllLines(path);
+                for (int i = 0; i < 500; i++)//5146
+                {
+                    var lineArr = lines[i].Split(new string[] { ",Sentiment140,", ",Kaggle," }, StringSplitOptions.None);
+                    y.Add(double.Parse(lineArr[0].Split(',')[1]));
+                    x.Add(lineArr[1].Trim());
+                }
+
+            }
+
+            //var dataTable = DataTable.New.ReadCsv(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files/spamdata.csv"));
+            //List<string> x = dataTable.Rows.Select(row => row["Text"]).ToList();
+            //double[] y = dataTable.Rows.Select(row => double.Parse(row["IsSpam"])).ToArray();
 
             vocabulary = x.SelectMany(GetWords).Distinct().OrderBy(word => word).ToList();
 
             var problemBuilder = new TextClassificationProblemBuilder();
-            var problem = problemBuilder.CreateProblem(x, y, vocabulary.ToList());
+            var problem = problemBuilder.CreateProblem(x, y.ToArray(), vocabulary.ToList());
 
             const int C = 1;
             model = new C_SVC(problem, KernelHelper.LinearKernel(), C);
 
-            _predictionDictionary = new Dictionary<int, string> { { -2, "Angry" }, { -1, "Sad" }, { 0, "Normal" }, { 1, "Happy" }, { 2, "Love" } };
+            _predictionDictionary = new Dictionary<int, string> {{ 0, "negative" }, { 1, "positive" } };
         }
 
         public static SvmMethod Instance
@@ -46,7 +61,7 @@ namespace SVM
             }
         }
 
-        public string Analyze(string message)
+        public int Analyze(string message)
         {
 
             //var accuracy = model.GetCrossValidationAccuracy(10);
@@ -58,7 +73,8 @@ namespace SVM
             var predictedY = model.Predict(newX);
             var predictedProb = model.PredictProbabilities(newX);
 
-            return $"The prediction is {_predictionDictionary[(int)predictedY]} value is {predictedY}";
+            //return _predictionDictionary[(int)predictedY];
+            return (int)predictedY>0 ? 1 : -1 ;
         }
         
         private IEnumerable<string> GetWords(string x)

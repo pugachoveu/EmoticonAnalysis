@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "name": "100",
     "emoji": "💯",
@@ -32,6 +32,16 @@
   {
     "name": "blush",
     "emoji": "😊",
+    "polarity": 2
+  },
+ {
+    "name": "blush",
+    "emoji": "=)",
+    "polarity": 2
+  },
+ {
+    "name": "blush",
+    "emoji": ":)",
     "polarity": 2
   },
   {

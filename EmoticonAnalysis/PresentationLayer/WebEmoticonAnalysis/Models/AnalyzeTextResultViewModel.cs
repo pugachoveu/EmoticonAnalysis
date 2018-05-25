@@ -12,5 +12,6 @@ namespace WebEmoticonAnalysis.Models
         public string DictionaryResult { get; set; }
         public string SvmResult { get; set; }
         public string BayesResult { get; set; }
+        public string TotalResult { get; set; }
     }
 }
