@@ -33,11 +33,11 @@
     @if (Model.Text != null)
     {
         <div class="tab-pane fade show active" id="search" role="tabpanel" aria-labelledby="search-tab">
-            <table class="table table-sm tweet-result-table">
+            <table class="table table-sm tweet-result-table table-bordered">
                 <caption>Search results for "@ViewBag.SearchString". Results - @Model.Tweets.Count </caption>
                 <thead>
                     <tr>
-                        <th scope="col">Tweet Id</th>
+                        @*<th scope="col">Tweet Id</th>*@
                         <th scope="col">Tweet Author</th>
                         <th scope="col">Text</th>
                         <th scope="col">Smile</th>
@@ -50,7 +50,7 @@
                     @foreach (var t in Model.Tweets)
                     {
                         <tr class=@t.TotalResult>
-                            <td scope="row">@t.TweetId</td>
+                            @*<td scope="row">@t.TweetId</td>*@
                             <td>@t.TweetAuthor</td>
                             <td>@t.TweetText</td>
                             <td><div class="containing-tabl"><div class="centre-align"><div class=@t.SmileResult></div></div></div></td>

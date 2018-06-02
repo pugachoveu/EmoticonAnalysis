@@ -201,6 +201,7 @@ namespace WebEmoticonAnalysis.Controllers
                  where search.Type == SearchType.Search &&
                      search.Query == model.SearchTweet &&
                      search.IncludeEntities == true &&
+                     search.SearchLanguage == "en" &&
                      search.TweetMode == TweetMode.Extended
                  select search)
                 .SingleOrDefaultAsync();
@@ -210,7 +211,7 @@ namespace WebEmoticonAnalysis.Controllers
                     result.Tweets = new List<AnalyzeSearchResultViewModel>();
                     foreach (var tweet in searchResponse.Statuses)
                     {
-                        var message = model.TextTweet;
+                        var message = tweet.FullText;
 
                         var smileResult = model.IsSmile ? smileAnalyzer.Analyze(message) : 0;
                         var dictionaryResult = model.IsDictionary ? dictionaryAnalyzer.Analyze(message) : 0;
